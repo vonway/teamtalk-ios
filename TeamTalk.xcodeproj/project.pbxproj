@@ -3195,7 +3195,7 @@
 					"$(PROJECT_DIR)/TeamTalk/Exist/Security",
 					"$(PROJECT_DIR)/TeamTalk/Exist/MobClick",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = im.teamtalk.tt;
+				PRODUCT_BUNDLE_IDENTIFIER = teamtalk.vonway.cn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -3223,7 +3223,7 @@
 					"$(PROJECT_DIR)/TeamTalk/Exist/Security",
 					"$(PROJECT_DIR)/TeamTalk/Exist/MobClick",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = im.teamtalk.tt;
+				PRODUCT_BUNDLE_IDENTIFIER = teamtalk.vonway.cn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
