@@ -87,7 +87,7 @@
                     </variation>
                 </imageView>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="center" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://192.168.1.111:8080/msg_server" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PdS-Lx-lfR">
-                    <rect key="frame" x="95" y="41" width="210" height="30"/>
+                    <rect key="frame" x="95" y="62" width="210" height="30"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
