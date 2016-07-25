@@ -66,7 +66,7 @@
 
 
 #pragma mark Public API
-- (void)loginWithUsername:(NSString*)name password:(NSString*)password success:(void(^)(MTTUserEntity* loginedUser))success failure:(void(^)(NSString* error))failure
+- (void)loginWithUsername:(NSString*)name password:(NSString*)password toserver:(NSString*)server success:(void(^)(MTTUserEntity* loginedUser))success failure:(void(^)(NSString* error))failure
 {
 
     [_httpServer getMsgIp:^(NSDictionary *dic) {
@@ -124,24 +124,24 @@
                    
                     failure(object.domain);
                 }];
-                
             } failure:^{
                  DDLog(@"连接消息服务器失败");
                   failure(@"连接消息服务器失败");
             }];
         }
-    } failure:^(NSString *error) {
+    } from:server
+     failure:^(NSString *error) {
          failure(@"连接消息服务器失败");
     }];
     
 }
 
-- (void)reloginSuccess:(void(^)())success failure:(void(^)(NSString* error))failure
+- (void)reloginSuccess:(void(^)())success toserver:server failure:(void(^)(NSString* error))failure
 {
     DDLog(@"relogin fun");
     if ([DDClientState shareInstance].userState == DDUserOffLine && _lastLoginPassword && _lastLoginUserName) {
         
-        [self loginWithUsername:_lastLoginUserName password:_lastLoginPassword success:^(MTTUserEntity *user) {
+        [self loginWithUsername:_lastLoginUserName password:_lastLoginPassword toserver:server success:^(MTTUserEntity *user) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloginSuccess" object:nil];
             success(YES);
         } failure:^(NSString *error) {

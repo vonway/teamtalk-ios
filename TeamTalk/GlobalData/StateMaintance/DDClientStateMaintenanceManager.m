@@ -264,7 +264,8 @@ static NSInteger const reloginTimeinterval = 5;
             [RecentUsersViewController shareInstance].title=APP_NAME;
             [MTTNotification postNotification:DDNotificationUserReloginSuccess userInfo:nil object:nil];
             DDLog(@"relogin success");
-            } failure:^(NSString *error) {
+        } toserver:SERVER_ADDR
+             failure:^(NSString *error) {
             DDLog(@"relogin failure:%@",error);
                 if ([error isEqualToString:@"未登录"]) {
                     [_reloginTimer invalidate];

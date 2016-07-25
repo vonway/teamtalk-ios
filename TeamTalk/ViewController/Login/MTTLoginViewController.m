@@ -22,6 +22,9 @@
 @property (nonatomic,weak)IBOutlet UIButton* userLoginBtn;
 @property(assign)BOOL isRelogin;
 
+@property (weak, nonatomic) IBOutlet UITextField *serverTextField;
+
+
 @end
 
 @implementation MTTLoginViewController
@@ -86,7 +89,6 @@
     
     [self.userLoginBtn.layer setCornerRadius:4];
     
-    // 设置用户名
     [self.view setBackgroundColor:[UIColor whiteColor]];
 }
 
@@ -126,7 +128,20 @@
 {
     [_userNameTextField resignFirstResponder];
     [_userPassTextField resignFirstResponder];
+    [_serverTextField resignFirstResponder];
 }
+
+- (IBAction)serverAddrBeginEdit:(id)sender
+{
+    [_serverTextField setTextColor:[UIColor blackColor]];
+}
+
+- (IBAction)serverAddrEndEdit:(id)sender
+{
+    [_serverTextField setTextColor:[UIColor whiteColor]];
+    [_serverTextField resignFirstResponder];
+}
+
 
 
 - (IBAction)loginButtonPressed:(UIButton*)button{
@@ -134,7 +149,9 @@
     [self.userLoginBtn setEnabled:NO];
     NSString* userName = _userNameTextField.text ;
     NSString* password = _userPassTextField.text ;
-    if (userName.length ==0 || password.length == 0) {
+    NSString* serverAddr = _serverTextField.text ;
+    
+    if (userName.length ==0 || password.length == 0 || serverAddr.length == 0) {
         [self.userLoginBtn setEnabled:YES];
         return;
     }
@@ -146,7 +163,7 @@
     
     SCLAlertView *alert = [SCLAlertView new];
  
-    [[LoginModule instance] loginWithUsername:userName password:password success:^(MTTUserEntity *user) {
+    [[LoginModule instance] loginWithUsername:userName password:password toserver:serverAddr success:^(MTTUserEntity *user) {
         
         [HUD removeFromSuperview];
         

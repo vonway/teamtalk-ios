@@ -28,19 +28,20 @@
     }];
     
 }
--(void)getMsgIp:(void(^)(NSDictionary *dic))block failure:(void(^)(NSString* error))failure
+-(void)getMsgIp:(void(^)(NSDictionary *dic))block from:(NSString*)server failure:(void(^)(NSString* error))failure
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-
+    NSLog(@"%@",server);
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [manager GET:SERVER_ADDR parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:server parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
             NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
             block(responseDictionary);
-        
+        NSLog(@"success");
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSString *errordes = error.domain;
+        NSLog(@"failed");
         failure(errordes);
     } ];
     
