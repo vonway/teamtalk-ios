@@ -145,8 +145,7 @@
     HUD.labelText = @"正在登录";
     
     SCLAlertView *alert = [SCLAlertView new];
-    userName = @"铸剑";
-    password = @"123456";
+ 
     [[LoginModule instance] loginWithUsername:userName password:password success:^(MTTUserEntity *user) {
         
         [HUD removeFromSuperview];
