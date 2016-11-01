@@ -196,11 +196,11 @@
 	{
 		if ( view.opaque )
 		{
-			NSMutableDictionary * info = (NSMutableDictionary *) objc_unretainedObject(CFDictionaryGetValue( _selectionColorInfo, objc_unretainedPointer(view) ));
+			NSMutableDictionary * info = (NSMutableDictionary *) (CFDictionaryGetValue( _selectionColorInfo, (__bridge void *)(view) ));
 			if ( info == nil )
 			{
 				info = [NSMutableDictionary dictionaryWithCapacity: 2];
-				CFDictionarySetValue( _selectionColorInfo, objc_unretainedPointer(view), objc_unretainedPointer(info) );
+				CFDictionarySetValue( _selectionColorInfo, (__bridge void *)(view), (__bridge void *)(info) );
 			}
 			
 			id value = view.backgroundColor;
@@ -220,7 +220,7 @@
 {
 	for ( UIView * view in aView.subviews )
 	{
-		NSMutableDictionary * info = (NSMutableDictionary *) objc_unretainedObject(CFDictionaryGetValue( _selectionColorInfo, objc_unretainedPointer(view) ));
+		NSMutableDictionary * info = (NSMutableDictionary *) (CFDictionaryGetValue( _selectionColorInfo, (__bridge void *)(view) ));
 		if ( info != nil )
 		{
 			id value = [info objectForKey: @"backgroundColor"];
@@ -245,11 +245,11 @@
 	{
 		if ( [view respondsToSelector: @selector(setHighlighted:)] )
 		{
-			NSMutableDictionary * info = (NSMutableDictionary *) objc_unretainedObject(CFDictionaryGetValue( _selectionColorInfo, objc_unretainedPointer(view) ));
+			NSMutableDictionary * info = (NSMutableDictionary *) (CFDictionaryGetValue( _selectionColorInfo, (__bridge void *)(view) ));
 			if ( info == nil )
 			{
 				info = [NSMutableDictionary dictionaryWithCapacity: 2];
-				CFDictionarySetValue( _selectionColorInfo, objc_unretainedPointer(view), objc_unretainedPointer(info) );
+				CFDictionarySetValue( _selectionColorInfo, (__bridge void *)(view), (__bridge void *)(info) );
 			}
 			
 			// don't overwrite any prior cache of a view's original highlighted state.
@@ -275,7 +275,7 @@
 	for ( UIView * view in aView.subviews )
 	{
 		if ([view respondsToSelector:@selector(setHighlighted:)]) {
-			NSMutableDictionary * info = (NSMutableDictionary *) objc_unretainedObject(CFDictionaryGetValue( _selectionColorInfo, objc_unretainedPointer(view) ));
+			NSMutableDictionary * info = (NSMutableDictionary *) (CFDictionaryGetValue( _selectionColorInfo, (__bridge void *)(view) ));
 			if ( info != nil )
 			{
 				id value = [info objectForKey: @"highlighted"];
