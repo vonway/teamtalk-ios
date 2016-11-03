@@ -43,7 +43,7 @@
     NSMutableDictionary *dic = [NSMutableDictionary new];
     for (MTTUserEntity * user in [[DDUserModule shareInstance] getAllMaintanceUser]) {
 
-        NSString *fl = [user.pyname substringWithRange:NSMakeRange(0, 1)];
+        NSString *fl = [user.nick substringWithRange:NSMakeRange(0, 1)];
         if ([dic safeObjectForKey:fl]) {
             NSMutableArray *arr = [dic safeObjectForKey:fl];
             [arr addObject:user];

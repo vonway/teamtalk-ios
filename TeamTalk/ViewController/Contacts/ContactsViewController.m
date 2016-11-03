@@ -312,9 +312,10 @@
 -(void)swichToShowDepartment
 {
     // [self.items removeAllObjects];
-    //self.items = [self.model sortByDepartment];
+    self.items = [self.model sortByDepartment];
     [self.tableView reloadData];
 }
+
 -(NSArray*)sectionIndexTitlesForTableView:(UITableView *)tableView{
     NSMutableArray* array = [[NSMutableArray alloc] init];
     if (self.selectIndex == 1) {

@@ -33,14 +33,17 @@
         return '#';
     }
 }
-
+//
+//  fix when the first char is a number
+//
 +(char)getFirstChar:(const NSString *)str{
     if (nil == str || 0 == [str length]) {
         return '#';
     }
     const char * firstChar = [str UTF8String];
     if ( ('a'<=  *firstChar && *firstChar <= 'z')
-        || ('A' <= *firstChar && *firstChar <= 'Z')) {
+        || ('A' <= *firstChar && *firstChar <= 'Z')
+        ||('0' <= *firstChar && *firstChar <= '9')) {
         return *firstChar;
     }
     else {

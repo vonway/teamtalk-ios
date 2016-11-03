@@ -189,8 +189,9 @@
         self.name  = pbUser.userRealName;
         self.nick  = pbUser.userNickName;
         self.avatar= pbUser.avatarUrl;
-        self.department = @(pbUser.departmentId);
-        self.departId = @"";
+        // TODO add department name for now just use department ID instead
+        self.department = [NSString stringWithFormat:@"%d",pbUser.departmentId];//@"";
+        self.departId = [NSString stringWithFormat:@"%d",pbUser.departmentId];
         self.telphone = pbUser.userTel;
         self.sex =   pbUser.userGender;
         self.email = pbUser.email;
