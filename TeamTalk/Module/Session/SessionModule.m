@@ -1,10 +1,3 @@
-//
-//  SessionModule.m
-//  TeamTalk
-//
-//  Created by Michael Scofield on 2014-12-05.
-//  Copyright (c) 2014 dujia. All rights reserved.
-//
 
 #import "SessionModule.h"
 #import "MTTSessionEntity.h"
@@ -143,7 +136,7 @@
 {
     GetRecentSession *getRecentSession = [[GetRecentSession alloc] init];
     NSInteger localMaxTime = [self getMaxTime];
-    [getRecentSession requestWithObject:@[@(localMaxTime)] Completion:^(NSArray *response, NSError *error) {
+    [getRecentSession requestWithObject:@[TheRuntime.user.objID, @(localMaxTime)] Completion:^(NSArray *response, NSError *error) {
 
         NSMutableArray *array = [NSMutableArray arrayWithArray:response];
         

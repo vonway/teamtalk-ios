@@ -1,10 +1,3 @@
-//
-//  DDSendMessageAPI.m
-//  Duoduo
-//
-//  Created by 独嘉 on 14-5-8.
-//  Copyright (c) 2015年 MoguIM All rights reserved.
-//
 
 #import "SendMessageAPI.h"
 #import "IMMessage.pb.h"
@@ -83,18 +76,19 @@
 {
     Package package = (id)^(id object,uint16_t seqNo)
     {
-        
+        //@[TheRuntime.user.objID,session.sessionID,data,@(message.msgType),@(message.msgID)
         NSArray* array = (NSArray*)object;
         NSString* fromId = array[0];
         NSString* toId = array[1];
         NSData* content = array[2];
         MsgType type = [array[3] intValue];
+        NSUInteger msgid = [array[4] unsignedIntegerValue];
         IMMsgDataBuilder *msgdata = [IMMsgData builder];
-        [msgdata setFromUserId:0];
+        [msgdata setFromUserId:fromId];
         [msgdata setToSessionId:[MTTUtil changeIDToOriginal:toId]];
         [msgdata setMsgData:content];
         [msgdata setMsgType:type];
-        [msgdata setMsgId:0];
+        [msgdata setMsgId:msgid];
         [msgdata setCreateTime:0];
         DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
         [dataout writeInt:0];

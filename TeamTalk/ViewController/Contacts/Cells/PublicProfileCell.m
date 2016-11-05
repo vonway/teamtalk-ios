@@ -1,10 +1,3 @@
-//
-//  PublicProfileCell.m
-//  TeamTalk
-//
-//  Created by scorpio on 14/12/18.
-//  Copyright (c) 2014年 dujia. All rights reserved.
-//
 
 #import "PublicProfileCell.h"
 
@@ -52,6 +45,7 @@
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

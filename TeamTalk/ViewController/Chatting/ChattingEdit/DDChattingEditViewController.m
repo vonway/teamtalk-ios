@@ -264,7 +264,9 @@
         if ([user.objID isEqualToString:TheRuntime.user.objID]) {
             [cell.delImg setHidden:YES];
         }
-        [cell setContent:user.nick AvatarImage:[user getAvatarUrl]];
+        //[cell setContent:user.nick AvatarImage:[user getAvatarUrl]];
+        // TODO
+        [cell setContent:user.nick AvatarImage:user.avatar];
     }else{
         if (self.group.groupType == GROUP_TYPE_FIXED) {
             [cell setContent:@"  " AvatarImage:@"  "];

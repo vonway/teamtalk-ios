@@ -97,7 +97,9 @@
         [[DDUserModule shareInstance] getUserForUserID:userID Block:^(MTTUserEntity *user) {
             if (user)
             {
-                NSString* avatarTmp = [user getAvatarUrl];
+                //NSString* avatarTmp = [user getAvatarUrl];
+                NSString* avatarTmp = user.avatar;
+                //NSLog(@"avatar url is %@",user.avatar);
                 [avatars addObject:avatarTmp];
             }
         }];

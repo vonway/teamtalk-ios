@@ -190,7 +190,9 @@ NSInteger const MAX_LINE_LENGTH = 15;
     }else{
         if (indexPath.section == 0) {
             user = [self.searchResult objectAtIndex:indexPath.row];
-            [resultCell setCellContent:[user getAvatarUrl] title:user.nick detail:@"" key:self.searchKey];
+            //[resultCell setCellContent:[user getAvatarUrl] title:user.nick detail:@"" key:self.searchKey];
+            // TODO
+            [resultCell setCellContent:user.avatar title:user.nick detail:@"" key:self.searchKey];
         }else if(indexPath.section == 1)
         {
             MTTGroupEntity *group = [self.groups objectAtIndex:indexPath.row];

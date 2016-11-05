@@ -1,10 +1,3 @@
-//
-//  MTTEditSignViewController.m
-//  TeamTalk
-//
-//  Created by scorpio on 15/6/19.
-//  Copyright (c) 2015年 MoguIM. All rights reserved.
-//
 
 #import "MTTEditSignViewController.h"
 #import "DDUserModule.h"
@@ -56,7 +49,7 @@
     [_signText becomeFirstResponder];
     
     [[DDUserModule shareInstance] getUserForUserID:[RuntimeStatus instance].user.objID Block:^(MTTUserEntity *user) {
-        self.user=user;
+        //self.user=user;
         _signText.text = user.signature;
     }];
     
@@ -73,8 +66,10 @@
     NSMutableArray *array = [NSMutableArray new];
     [array addObject:sign];
     [request requestWithObject:array Completion:^(id response, NSError *error) {
+        // 更改服务器中user的签名成功，TODO 返回的code是否需要判断
     }];
     [RuntimeStatus instance].user.signature = sign;
+    // 更新信息页里的签名
     [[DDUserModule shareInstance] getUserForUserID:[RuntimeStatus instance].user.objID Block:^(MTTUserEntity *user) {
         user.signature = sign;
     }];

@@ -1,10 +1,3 @@
-//
-//  DDChattingMainViewController.m
-//  IOSDuoduo
-//
-//  Created by 东邪 on 14-5-26.
-//  Copyright (c) 2014年 dujia. All rights reserved.
-//
 
 #import "ChattingMainViewController.h"
 #import "ChatUtilityViewController.h"

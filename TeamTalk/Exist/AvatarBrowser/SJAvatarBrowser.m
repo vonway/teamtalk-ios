@@ -1,3 +1,4 @@
+
 #import "SJAvatarBrowser.h"
 static CGRect oldframe;
 @implementation SJAvatarBrowser

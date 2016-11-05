@@ -87,7 +87,9 @@
     if(self.session.sessionType == MsgTypeMsgTypeSingleText){
         [[DDUserModule shareInstance] getUserForUserID:self.session.sessionID Block:^(MTTUserEntity *user) {
             MTTMessageEntity *msg = [self.searchResult objectAtIndex:indexPath.row];
-            [resultCell setCellContent:[user getAvatarUrl] title:user.nick detail:msg.msgContent key:self.searchKey];
+            //[resultCell setCellContent:[user getAvatarUrl] title:user.nick detail:msg.msgContent key:self.searchKey];
+            // TODO
+            [resultCell setCellContent:user.avatar title:user.nick detail:msg.msgContent key:self.searchKey];
         }];
     }else{
         MTTGroupEntity *group = [[DDGroupModule instance] getGroupByGId:self.session.sessionID];

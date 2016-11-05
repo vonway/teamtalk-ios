@@ -1,10 +1,3 @@
-//
-//  MTTMyViewController.m
-//  IOSDuoduo
-//
-//  Created by Michael Scofield on 2014-07-15.
-//  Copyright (c) 2014 dujia. All rights reserved.
-//
 
 #import "MTTMyViewController.h"
 #import "PublicProfileViewControll.h"
@@ -49,7 +42,7 @@
 {
     MTT_WEAKSELF(ws);
     
-    // 默认设置夜间模式关闭
+    // 默认设置免打扰模式关闭
     _pushShiledStatus = 0;
     
     [super viewDidLoad];
@@ -73,7 +66,7 @@
     [self.tableView registerClass:[MTTBaseCell class] forCellReuseIdentifier:@"logoutIdentifier"];
     [self.tableView registerClass:[MTTBaseCell class] forCellReuseIdentifier:@"extraIdentifier"];
     
-    // 获取夜间模式状态
+    // 获取免打扰模式状态
     MTTNightModeAPI *request = [MTTNightModeAPI new];
     NSMutableArray *array = [NSMutableArray new];
     [request requestWithObject:array Completion:^(NSArray *response, NSError *error) {
@@ -142,8 +135,7 @@
         [footerView addSubview:detail];
         return footerView;
     }else if(section == 2){
-//        [detail setText:[NSString stringWithFormat:@"版本：%@",MTTVerison]];
-        [detail setText:@""];
+        [detail setText:[NSString stringWithFormat:@"版本: %@",MTTVerison]];
         [detail setTextAlignment:NSTextAlignmentCenter];
         [footerView addSubview:detail];
         return footerView;
@@ -183,7 +175,8 @@
         
         [[DDUserModule shareInstance] getUserForUserID:[RuntimeStatus instance].user.objID Block:^(MTTUserEntity *user) {
             self.user=user;
-            [cell setCellContent:[user getAvatarUrl] Name:user.name Cname:user.nick];
+            //[cell setCellContent:[user getAvatarUrl] Name:user.name Cname:user.nick];
+            [cell setCellContent:user.avatar Name:user.name Cname:user.nick];
         }];
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         return cell;
@@ -215,7 +208,7 @@
         }
         else if(row == 2)
         {
-            [cell.textLabel setText:@"夜间模式"];
+            [cell.textLabel setText:@"免打扰模式"];
             [cell setUserInteractionEnabled:YES];
             [cell showSwitch];
             [cell opSwitch:_pushShiledStatus];
@@ -299,7 +292,7 @@
         if(buttonIndex == 0){
             [[MTTPhotosCache sharedPhotoCache] clearAllCache:^(bool isfinish) {
                 if (isfinish) {
-                    NSLog(@"11");
+                    NSLog(@"clear all cache finished!");
                 }
             }];
         }
@@ -308,6 +301,7 @@
 
 -(void)gotoUpdatePage
 {
+    // TODO update url
     NSString *url = TheRuntime.updateInfo[@"url"];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 }
@@ -319,6 +313,7 @@
     [self pushViewController:public animated:YES];
 }
 
+// NOT USED
 -(void)gotoSelectBubble
 {
     MTTBubbleShowViewControll *bubble = [MTTBubbleShowViewControll new] ;

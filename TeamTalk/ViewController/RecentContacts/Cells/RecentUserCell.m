@@ -1,10 +1,3 @@
-//
-//  DDRecentUserCell.m
-//  IOSDuoduo
-//
-//  Created by 独嘉 on 14-5-26.
-//  Copyright (c) 2014年 dujia. All rights reserved.
-//
 
 #import "RecentUserCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -275,7 +268,9 @@
                 [(UIView*)obj removeFromSuperview];
             }];
             [_avatarImageView setImage:nil];
-            [self setAvatar:[user getAvatarUrl]];
+            //[self setAvatar:[user getAvatarUrl]];
+            // TODO
+            [self setAvatar:user.avatar];
         }];
     }else{
         [_avatarImageView setBackgroundColor:RGB(228, 227, 230)];
@@ -328,12 +323,14 @@
             [[DDUserModule shareInstance] getUserForUserID:userID Block:^(MTTUserEntity *user) {
                 if (user)
                 {
-                    NSString* avatar = [user getAvatarUrl];
+                    //NSString* avatar = [user getAvatarUrl];
+                    // TODO
+                    NSString* avatar = user.avatar;
                     [avatars addObject:avatar];
                 }
             }];
         }];
-
+        
         [_avatarImageView setAvatar:[avatars componentsJoinedByString:@";"] group:1];
     }];
 }

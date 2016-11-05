@@ -1,10 +1,3 @@
-//
-//  MTTRootViewController.m
-//  IOSDuoduo
-//
-//  Created by Michael Scofield on 2014-07-15.
-//  Copyright (c) 2014 dujia. All rights reserved.
-//
 
 #import "MTTRootViewController.h"
 #import "RecentUsersViewController.h"
@@ -19,6 +12,8 @@
 #import "DDUserModule.h"
 #import "UIAlertView+Block.h"
 #import "DDClientState.h"
+
+#import "RecentUsersViewController.h"
 
 @interface MTTRootViewController ()<UITabBarControllerDelegate,UITabBarDelegate>
 @property(assign) NSUInteger clickCount;
@@ -45,7 +40,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
     
     RecentUsersViewController *recentVC= [RecentUsersViewController shareInstance];
     UIImage* conversationSelected = [[UIImage imageNamed:@"conversation_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -53,6 +47,20 @@
     recentVC.tabBarItem.tag=100;
     [recentVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObject:RGB(26, 140, 242) forKey:NSForegroundColorAttributeName] forState:UIControlStateSelected];
     recentVC.hidesBottomBarWhenPushed =YES;
+    
+    // TODO
+    // update recent user's sessions after user logout and login
+    // not close the app
+    
+    [[RecentUsersViewController shareInstance].items addObjectsFromArray:[[SessionModule instance] getAllSessions]];
+    [[RecentUsersViewController shareInstance] sortItems];
+    
+    [[SessionModule instance] getRecentSession:^(NSUInteger count) {
+        
+        [[RecentUsersViewController shareInstance] sortItems];
+        [[RecentUsersViewController shareInstance] setToolbarBadge:count];
+        
+    }];
     
     UIImage* contactSelected = [[UIImage imageNamed:@"contact_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     ContactsViewController *contactVC =[ContactsViewController new];
@@ -114,7 +122,7 @@
     UIImageView *imgView =[self.tabBar tabBarButtonImageViewWithTitle:@"我"];
     
     BOOL update = [TheRuntime.updateInfo[@"haveupdate"] boolValue];
-    
+    //TODO UseFunctionBubble not set so if is always true
     if (![MTTUtil isUseFunctionBubble] || update) {
         
         UIView *pointBadgeView =[imgView pointBadgeView];
@@ -127,6 +135,11 @@
     else{
         [imgView removePointBadge:YES];
     }
+    
+    // just remove the pointbadge
+    
+    [imgView removePointBadge:YES];
+    
 }
 
 #pragma mark -
@@ -137,6 +150,11 @@
 -(void)logoutNotification:(NSNotification*)notification{
 
     [MTTUtil loginOut];
+    // TODO clear last user's sessions or items
+    [[RecentUsersViewController shareInstance].items removeAllObjects];
+    //[self.items addObjectsFromArray:[[SessionModule instance] getAllSessions]];
+    //[self sortItems];
+    //[self setToolbarBadge:count];
     
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
@@ -184,7 +202,7 @@
                         allStop = YES;
                     }
                 }];
-                if(!allStop){
+                if(!allStop && [[RecentUsersViewController shareInstance].items count]!=0){
                     [[RecentUsersViewController shareInstance].tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] atScrollPosition:UITableViewScrollPositionTop animated:YES];
                 }
             }

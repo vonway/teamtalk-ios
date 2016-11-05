@@ -116,7 +116,9 @@
                     
                     success(user);
                     
-                     [MTTNotification postNotification:DDNotificationUserLoginSuccess userInfo:nil object:user];
+                    [MTTNotification postNotification:DDNotificationUserLoginSuccess userInfo:nil object:user];
+                  
+                    
                     
                 } failure:^(NSError *object) {
                     

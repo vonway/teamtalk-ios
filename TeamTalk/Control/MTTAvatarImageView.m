@@ -62,7 +62,9 @@
             {
                 avatar = [avatar substringToIndex:[avatar length] - 1];
             }
+            
             NSArray* avatarArray = [avatar componentsSeparatedByString:@";"];
+            
             [self p_setGroupAvatar:avatarKey avatars:avatarArray];
         }
     }
@@ -96,6 +98,7 @@
         [imageView setUserInteractionEnabled:NO];
         NSString* avatar = avatarImages[index];
         NSURL* url = [NSURL safeURLWithString:avatar];
+        //NSLog(@"group avatar url is : %@",url);
         [imageView sd_setImageWithURL:url placeholderImage:placeholdImage];
         [self addSubview:imageView];
     }

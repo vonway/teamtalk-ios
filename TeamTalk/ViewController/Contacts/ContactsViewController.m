@@ -496,14 +496,16 @@
             NSArray *userArray =[self.items objectForKey:keyStr];
             MTTUserEntity *user = [userArray objectAtIndex:indexPath.row];
             
-            [cell setCellContent:[user getAvatarUrl] Name:user.nick];
+            //[cell setCellContent:[user getAvatarUrl] Name:user.nick];
+            [cell setCellContent:user.avatar Name:user.nick];
         }
-    }else
+    }else// department
     {
         NSString *keyStr = [[self allKeys] objectAtIndex:indexPath.section];
         NSArray *userArray =[self.department objectForKey:keyStr];
         MTTUserEntity *user = [userArray objectAtIndex:indexPath.row];
-        [cell setCellContent:[user getAvatarUrl] Name:user.nick];
+        //[cell setCellContent:[user getAvatarUrl] Name:user.nick];
+        [cell setCellContent:user.avatar Name:user.nick];
     }
     
     return cell;

@@ -1,10 +1,3 @@
-//
-//  SessionModule.h
-//  TeamTalk
-//
-//  Created by Michael Scofield on 2014-12-05.
-//  Copyright (c) 2014 dujia. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 

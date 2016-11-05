@@ -310,7 +310,7 @@
                 NSData *remainData = [_receiveBuffer subdataWithRange:range];
                 [_receiveBuffer setData:remainData];
                 ServerDataType dataType = DDMakeServerDataType(tcpHeader.serviceId, tcpHeader.commandId, tcpHeader.reserved);
-                NSLog(@"***********收到服务端sid:%i cid:%i",tcpHeader.serviceId,tcpHeader.commandId);
+                NSLog(@">>收到服务端sid:%i cid:%i",tcpHeader.serviceId,tcpHeader.commandId);
                 if (payloadData.length >0) {
                     [[DDAPISchedule instance] receiveServerData:payloadData forDataType:dataType];
                 }

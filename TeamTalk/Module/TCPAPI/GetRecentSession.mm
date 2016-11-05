@@ -120,8 +120,8 @@
     Package package = (id)^(id object,uint16_t seqNo)
     {
         IMRecentContactSessionReqBuilder *req = [IMRecentContactSessionReq builder];
-        [req setUserId:0];
-        [req setLatestUpdateTime:[object[0] integerValue]];
+        [req setUserId:[object[0] integerValue]];
+        [req setLatestUpdateTime:[object[1] integerValue]];
         DDDataOutputStream *dataout = [[DDDataOutputStream alloc] init];
         [dataout writeInt:0];
         [dataout writeTcpProtocolHeader:SID_BUDDY_LIST

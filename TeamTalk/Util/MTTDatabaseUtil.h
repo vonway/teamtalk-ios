@@ -1,10 +1,3 @@
-//
-//  MTTDatabaseUtil.h
-//  Duoduo
-//
-//  Created by zuoye on 14-3-21.
-//  Copyright (c) 2015年 MoguIM All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 #import "FMDB.h"

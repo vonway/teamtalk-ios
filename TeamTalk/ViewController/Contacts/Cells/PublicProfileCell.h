@@ -1,10 +1,3 @@
-//
-//  PublicProfileCell.h
-//  TeamTalk
-//
-//  Created by scorpio on 14/12/18.
-//  Copyright (c) 2014年 dujia. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 

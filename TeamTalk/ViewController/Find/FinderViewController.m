@@ -1,10 +1,3 @@
-//
-//  FinderViewController.m
-//  TeamTalk
-//
-//  Created by 独嘉 on 14-10-22.
-//  Copyright (c) 2014年 dujia. All rights reserved.
-//
 
 #import "FinderViewController.h"
 #import "MTTWebViewController.h"
@@ -110,10 +103,6 @@
     {
         [cell.textLabel setText:@"扫一扫"];
     }
-    else if (row == 2)
-    {
-        [cell.textLabel setText:@"街利贷"];
-    }
     [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     return cell;
 }
@@ -133,14 +122,15 @@
         [self.navigationController pushViewController:webViewController animated:YES];
     }else if (row == 1)
     {
-        NSString* nick = [RuntimeStatus instance].user.nick;
-        NSDictionary *dict = @{@"nick" : nick};
+        //NSString* nick = [RuntimeStatus instance].user.nick;
+        //NSDictionary *dict = @{@"nick" : nick};
+        
         viewController =[ScanQRCodePage new];
+        if (viewController) {
+            [self pushViewController:viewController animated:YES];
+        }
     }
     
-    if (viewController) {
-        [self pushViewController:viewController animated:YES];
-    }
 }
 
 @end

@@ -1,10 +1,3 @@
-//
-//  PublieProfileViewControll.m
-//  IOSDuoduo
-//
-//  Created by Michael Scofield on 2014-07-16.
-//  Copyright (c) 2014 dujia. All rights reserved.
-//
 
 #import "PublicProfileViewControll.h"
 #import "MTTUserEntity.h"
@@ -86,7 +79,9 @@
 -(void)initData
 {
     UIImage* placeholder = [UIImage imageNamed:@"user_placeholder"];
-    [_avatar sd_setImageWithURL:[NSURL URLWithString:[self.user get300AvatarUrl]] placeholderImage:placeholder];
+    //[_avatar sd_setImageWithURL:[NSURL URLWithString:[self.user get300AvatarUrl]] placeholderImage:placeholder];
+    // TODO get 300 size's avatar
+    [_avatar sd_setImageWithURL:[NSURL URLWithString:self.user.avatar] placeholderImage:placeholder];
     [_name setText:self.user.nick];
     [_cname setText:self.user.name];
 }
@@ -112,7 +107,7 @@
     UIImage* placeholder = [UIImage initWithColor:TTBG rect:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH)];
     _avatarView = [[UIImageView alloc]init];
     [_avatarView sd_setImageWithURL:[NSURL URLWithString:self.user.avatar] placeholderImage:placeholder];
-    
+    //NSLog(@"avatar url is %@",self.user.avatar);
     [_avatar setUserInteractionEnabled:YES];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAvatar:)];
     [_avatar addGestureRecognizer:tap];
@@ -236,7 +231,12 @@
             break;
         case 2:
         {
-            [cell setDesc:@"签名" detail:self.user.signature];
+            if ([self.user.signature length] == 0) {
+                [cell setDesc:@"签名" detail:@"这个家伙有点懒..."];
+            } else {
+                [cell setDesc:@"签名" detail:self.user.signature];
+            }
+            
             if(![self.user.objID isEqualToString:TheRuntime.user.objID]){
                 cell.userInteractionEnabled = NO;
             }
@@ -253,8 +253,14 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
+        // 邮箱
         case 1:{
-            NSString *title = [NSString stringWithFormat:@"%@%@",@"发送邮件给",self.user.email];
+            NSString *title = nil;
+            if([self.user.email length]){
+                title = [NSString stringWithFormat:@"邮件地址为空"];
+            }else{
+                title = [NSString stringWithFormat:@"%@%@",@"发送邮件给",self.user.email];
+            }
             LCActionSheet *sheet = [[LCActionSheet alloc] initWithTitle:title
                                                            buttonTitles:@[@"确定"]
                                                          redButtonIndex:-1
@@ -263,6 +269,8 @@
             [sheet show];
         }
             break;
+        //  签名
+        //  因为不是自己的信息页，这个签名是不能交互的，所以可以点击的一定是自己的信息页
         case 2:{
             if ([self.user.objID isEqualToString:TheRuntime.user.objID]) {
                 //将cell的红点去掉

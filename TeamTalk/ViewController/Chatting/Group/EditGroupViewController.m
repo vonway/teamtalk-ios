@@ -253,7 +253,9 @@
         {
             [cell setCellToSelected:NO];
         }
-        [cell setCellContent:[user getAvatarUrl] Name:user.nick];
+        //[cell setCellContent:[user getAvatarUrl] Name:user.nick];
+        // TODO
+        [cell setCellContent:user.avatar Name:user.nick];
         
         return cell;
     }
@@ -268,7 +270,8 @@
         }
         cell.nameLabel.text=user.nick;
         UIImage* placeholder = [UIImage imageNamed:@"user_placeholder"];
-        [cell.avatar sd_setImageWithURL:[NSURL URLWithString:[user getAvatarUrl]] placeholderImage:placeholder];
+        //[cell.avatar sd_setImageWithURL:[NSURL URLWithString:[user getAvatarUrl]] placeholderImage:placeholder];
+        [cell.avatar sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:placeholder];
         return cell;
         
     }

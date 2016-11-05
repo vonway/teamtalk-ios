@@ -1,9 +1,3 @@
-//  MTTDatabaseUtil.m
-//  Duoduo
-//
-//  Created by zuoye on 14-3-21.
-//  Copyright (c) 2015年 MoguIM All rights reserved.
-//
 
 #import "MTTDatabaseUtil.h"
 #import "MTTMessageEntity.h"
@@ -21,7 +15,11 @@
 #define TABLE_DEPARTMENTS               @"departments"
 #define TABLE_GROUPS                    @"groups"
 #define TABLE_RECENT_SESSION            @"recentSession"
-#define SQL_CREATE_MESSAGE              [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (messageID integer,sessionId text ,fromUserId text,toUserId text,content text, status integer, msgTime real, sessionType integer,messageContentType integer,messageType integer,info text,reserve1 integer,reserve2 text,primary key (messageID,sessionId))",TABLE_MESSAGE]
+// TODO temply make session id not parmary key
+#define SQL_CREATE_MESSAGE              [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (messageID integer,sessionId text ,fromUserId text,toUserId text,content text, status integer, msgTime real, sessionType integer,messageContentType integer,messageType integer,info text,reserve1 integer,reserve2 text,primary key (messageID))",TABLE_MESSAGE]
+
+//#define SQL_CREATE_MESSAGE              [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (messageID integer,sessionId text ,fromUserId text,toUserId text,content text, status integer, msgTime real, sessionType integer,messageContentType integer,messageType integer,info text,reserve1 integer,reserve2 text,primary key (messageID,sessionId))",TABLE_MESSAGE]
+
 #define SQL_CREATE_MESSAGE_INDEX        [NSString stringWithFormat:@"CREATE INDEX msgid on %@(messageID)",TABLE_MESSAGE]
 
 
@@ -77,6 +75,7 @@
         _database = nil;
     }
     _dataBaseQueue = [FMDatabaseQueue databaseQueueWithPath:[MTTDatabaseUtil dbFilePath]];
+    //NSLog(@"db file path is %@",[MTTDatabaseUtil dbFilePath]);
     _database = [FMDatabase databaseWithPath:[MTTDatabaseUtil dbFilePath]];
     if (![_database open])
     {
@@ -107,6 +106,9 @@
         
         //创建
         [_dataBaseQueue inDatabase:^(FMDatabase *db) {
+            
+            //[self createTable:[NSString stringWithFormat:@"drop table %@",TABLE_MESSAGE]];
+            
             if (![_database tableExists:TABLE_MESSAGE])
             {
                 [self createTable:SQL_CREATE_MESSAGE];
@@ -530,6 +532,7 @@
 {
     //(messageID integer,sessionId text,fromUserId text,toUserId text,content text, status integer, msgTime real, sessionType integer,messageType integer,reserve1 integer,reserve2 text)
     [_dataBaseQueue inDatabase:^(FMDatabase *db) {
+        // TODO sessionid and message id is primary temply change the sessionid not primary in create table TABLE_MESSAGE
         NSString* sql = [NSString stringWithFormat:@"UPDATE %@ set sessionId = ? , fromUserId = ? , toUserId = ? , content = ? , status = ? , msgTime = ? , sessionType = ? , messageType = ? ,messageContentType = ? , info = ? where messageID = ?",TABLE_MESSAGE];
         
         NSData* infoJsonData = [NSJSONSerialization dataWithJSONObject:message.info options:NSJSONWritingPrettyPrinted error:nil];
