@@ -489,8 +489,8 @@
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
 {
-    NSString* nick = [RuntimeStatus instance].user.nick;
-    NSDictionary *dict = @{@"nick" : nick};
+    //NSString* nick = [RuntimeStatus instance].user.nick;
+    //NSDictionary *dict = @{@"nick" : nick};
     self.searchContent.searchKey = searchBar.text;
     // 原tableview不允许滚动
     self.tableView.scrollEnabled = NO;
