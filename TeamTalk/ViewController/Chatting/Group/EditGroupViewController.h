@@ -1,10 +1,3 @@
-//
-//  EditGroupViewController.h
-//  TeamTalk
-//
-//  Created by Michael Scofield on 2014-09-01.
-//  Copyright (c) 2014 dujia. All rights reserved.
-//
 
 #import "MTTBaseViewController.h"
 #import "MTTGroupEntity.h"

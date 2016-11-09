@@ -1,10 +1,3 @@
-//
-//  EditGroupViewController.m
-//  TeamTalk
-//
-//  Created by Michael Scofield on 2014-09-01.
-//  Copyright (c) 2014 dujia. All rights reserved.
-//
 
 #import "EditGroupViewController.h"
 #import "EditGroupViewCell.h"
@@ -101,7 +94,8 @@
 {
     NSMutableDictionary *dic = [NSMutableDictionary new];
     for (MTTUserEntity * user in [[DDUserModule shareInstance] getAllMaintanceUser]) {
-        NSString *fl = [[user.pyname substringWithRange:NSMakeRange(0, 1)] uppercaseString];
+        // 使用nick name排序
+        NSString *fl = [[user.nick substringWithRange:NSMakeRange(0, 1)] uppercaseString];
         if ([dic safeObjectForKey:fl]) {
             NSMutableArray *arr = [dic safeObjectForKey:fl];
             [arr addObject:user];
@@ -364,17 +358,18 @@
                 }
             }];
             NSString *groupName = tf.text.length !=0?tf.text:[self creatGroupName];
-            NSArray *array =@[groupName,@"",userIDs];
+            NSArray *array =@[TheRuntime.user.objID,groupName,@"",userIDs];
             [creatGroup requestWithObject:array Completion:^(MTTGroupEntity * response, NSError *error) {
                 if (response !=nil) {
                     response.groupCreatorId=TheRuntime.user.objID;
                     [[DDGroupModule instance] addGroup:response];
                     [self.editControll refreshUsers:self.editArray];
                     self.editControll.group=response;
-                    self.editControll.session.sessionID=response.objID;
-                    self.editControll.session.sessionType=SessionTypeSessionTypeGroup;
+                    //self.editControll.session.sessionID=response.objID;
+                    //self.editControll.session.sessionType=SessionTypeSessionTypeGroup;
                     MTTSessionEntity *session = [[MTTSessionEntity alloc] initWithSessionID:response.objID type:SessionTypeSessionTypeGroup];
                     session.lastMsg=@" ";
+                    self.editControll.session = session;
                     [[MTTDatabaseUtil instance] updateRecentSession:session completion:^(NSError *error) {
                         
                     }];
@@ -384,7 +379,30 @@
                     [[ChattingMainViewController shareInstance] showChattingContentForSession:session];
 //                    [[ChattingMainViewController shareInstance].module.showingMessages removeAllObjects];
                     [ChattingMainViewController shareInstance].title=response.name;
+                    
+                    // 如果是从最新信息的rightbarbutton中添加的，那么需要push vc到这里
+                    int i = 0;
+                    NSMutableArray *marr = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+                    for (UIViewController *vc in marr) {
+                        if ([vc isKindOfClass:[ChattingMainViewController class]]) {
+                                i = 1;
+                            break;
+                        }
+                    }
+                    if (i == 0) {
+                        // 没有chatmianvc 那么需要创建一个加入进去
+                        for (UIViewController *vc in marr) {
+                            if ([vc isKindOfClass:[EditGroupViewController class]]) {
+                                [marr removeObject:vc];
+                                [marr addObject:[ChattingMainViewController shareInstance]];
+                                break;
+                            }
+                        }
+                        self.navigationController.viewControllers = marr;
+                    }
+                    
                     [self.navigationController popToViewController:[ChattingMainViewController shareInstance] animated:YES];
+            
                     [[SessionModule instance] addToSessionModel:session];
                     if ([SessionModule instance].delegate && [[SessionModule instance].delegate respondsToSelector:@selector(sessionUpdate:Action:)]) {
                         [[SessionModule instance].delegate sessionUpdate:session Action:ADD];

@@ -1,10 +1,3 @@
-//
-//  CONSTANT.h
-//  IOSDuoduo
-//
-//  Created by 独嘉 on 14-5-23.
-//  Copyright (c) 2014年 dujia. All rights reserved.
-//
 
 /**
  *  Debug模式和Release模式不同的宏定义
@@ -28,6 +21,6 @@
 #define IM_PDU_HEADER_LEN   16
 #define IM_PDU_VERSION      13
 
-#define SERVER_ADDR                             @"http://192.168.1.111:8080/msg_server"
+#define SERVER_ADDR                             @"http://192.168.1.112:8080/msg_server"
 
 #define _(x)                                NSLocalizedString(x,@"")

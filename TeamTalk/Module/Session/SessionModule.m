@@ -14,6 +14,7 @@
 #import "DDGroupModule.h"
 
 @interface SessionModule()
+// key=>value is sessionid => MTTSessionEntity
 @property(strong)NSMutableDictionary *sessions;
 @end
 

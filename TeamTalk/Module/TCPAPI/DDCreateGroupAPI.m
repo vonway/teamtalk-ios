@@ -1,10 +1,3 @@
-//
-//  DDCreateGroupAPI.m
-//  Duoduo
-//
-//  Created by 独嘉 on 14-5-8.
-//  Copyright (c) 2015年 MoguIM All rights reserved.
-//
 
 #import "DDCreateGroupAPI.h"
 #import "DDTcpProtocolHeader.h"
@@ -111,12 +104,13 @@
     Package package = (id)^(id object,uint16_t seqNo)
     {
         NSArray* array = (NSArray*)object;
-        NSString* groupName = array[0];
-        NSString* groupAvatar = array[1];
-        NSArray* groupUserList = array[2];
+        NSString* createrID = array[0];
+        NSString* groupName = array[1];
+        NSString* groupAvatar = array[2];
+        NSArray* groupUserList = array[3];
         
         IMGroupCreateReqBuilder *req = [IMGroupCreateReq builder];
-        [req setUserId:0];
+        [req setUserId:[createrID integerValue]];
         [req setGroupName:groupName];
         [req setGroupAvatar:groupAvatar];
         [req setGroupType:GroupTypeGroupTypeTmp];

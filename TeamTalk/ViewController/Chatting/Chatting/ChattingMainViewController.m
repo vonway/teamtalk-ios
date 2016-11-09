@@ -397,7 +397,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
     UIBarButtonItem* item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"myprofile"]
                                                              style:UIBarButtonItemStylePlain
                                                             target:self
-                                                            action:@selector(Edit:)];
+                                                            action:@selector(edit)];
     self.navigationItem.rightBarButtonItem=item;
     [self.module addObserver:self
                   forKeyPath:@"showingMessages"
@@ -531,7 +531,7 @@ typedef NS_ENUM(NSUInteger, PanelStatus)
     [self.titleBtn setTitle:title forState:UIControlStateNormal];
     [self queryUserStat];
 }
--(IBAction)Edit:(id)sender
+-(void)edit
 {
     DDChattingEditViewController *chattingedit = [DDChattingEditViewController new];
     chattingedit.session=self.module.MTTSessionEntity;

@@ -22,6 +22,7 @@ typedef void(^TimeCellAddBlock)(bool isok);
     
     RecordingView* _recordingView;
 }
+// 
 @property(nonatomic,strong)ChattingModule* module;
 @property(nonatomic,strong)ChatUtilityViewController *ddUtility;
 @property(nonatomic,strong)JSMessageInputView *chatInputView;

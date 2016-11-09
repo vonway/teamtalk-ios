@@ -1,10 +1,3 @@
-//
-//  DDChattingModule.m
-//  IOSDuoduo
-//
-//  Created by 独嘉 on 14-5-28.
-//  Copyright (c) 2014年 dujia. All rights reserved.
-//
 
 #import "ChattingModule.h"
 #import "MTTDatabaseUtil.h"
@@ -430,7 +423,7 @@ static NSUInteger const showPromptGap = 300;
 {
     
     __block NSInteger maxMsgID =[self getMaxMsgId:messages];
-    __block NSInteger minMsgID =[self getMaxMsgId:messages];;
+    __block NSInteger minMsgID =[self getMaxMsgId:messages];
     [messages enumerateObjectsUsingBlock:^(MTTMessageEntity * obj, NSUInteger idx, BOOL *stop) {
         if (obj.msgID > maxMsgID && obj.msgID<LOCAL_MSG_BEGIN_ID) {
             //maxMsgID =obj.msgID;

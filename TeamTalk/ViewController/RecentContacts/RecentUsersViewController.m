@@ -1,4 +1,5 @@
 
+#import "EditGroupViewController.h"
 #import "RecentUsersViewController.h"
 #import "RecentUserCell.h"
 #import "DDUserModule.h"
@@ -13,7 +14,7 @@
 #import "DDGroupModule.h"
 #import "DDFixedGroupAPI.h"
 #import "SearchContentViewController.h"
-#import "MBProgressHUD.h"
+//#import "MBProgressHUD.h"
 #import "SessionModule.h"
 #import "MTTLoginViewController.h"
 #import "MTTPCStatusCell.h"
@@ -23,11 +24,11 @@
 #import <Masonry.h>
 
 @interface RecentUsersViewController ()
-@property(nonatomic,strong)MBProgressHUD *hud;
-@property(nonatomic,strong)NSMutableDictionary *lastMsgs;
+//@property(nonatomic,strong)MBProgressHUD *hud;
+//@property(nonatomic,strong)NSMutableDictionary *lastMsgs;
 @property(nonatomic,strong)UISearchBar *searchBar;
 @property(nonatomic,strong)SearchContentViewController *searchContent;
-@property(nonatomic,assign)NSInteger fixedCount;
+//@property(nonatomic,assign)NSInteger fixedCount;
 @property(nonatomic,strong)UITableView* searchTableView;
 @property(nonatomic,strong)UIView* searchPlaceholderView;
 @property(nonatomic,assign)BOOL isMacOnline;
@@ -83,6 +84,17 @@
     return self;
 }
 
+-(void)add
+{
+    EditGroupViewController *newEdit = [EditGroupViewController new];
+    newEdit.session=nil;
+    newEdit.group=nil;
+    newEdit.isCreat=YES;
+    newEdit.users=[NSMutableArray new];
+    newEdit.editControll=nil;
+    [self pushViewController:newEdit animated:YES];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -101,8 +113,14 @@
     self.searchBar.layer.borderColor = RGB(204, 204, 204).CGColor;
     self.tableView.tableHeaderView = self.searchBar;
     
-    self.lastMsgs = [NSMutableDictionary new];
+    //self.lastMsgs = [NSMutableDictionary new];
     self.isMacOnline = 0;
+    
+    UIBarButtonItem* item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"myprofile"]
+                                                             style:UIBarButtonItemStylePlain
+                                                            target:self
+                                                            action:@selector(add)];
+    self.navigationItem.rightBarButtonItem=item;
     
     /*
      [[SessionModule instance] loadLocalSession:^(bool isok) {
@@ -309,10 +327,10 @@
 }
 
 
--(void)searchContact
-{
-    
-}
+//-(void)searchContact
+//{
+//    
+//}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -344,6 +362,10 @@
 
 #pragma mark - UITableView DataSource
 
+/**
+ *  1 --> pc status
+ *  2 --> recentcontacts sessions
+ */
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 2;
@@ -373,7 +395,12 @@
     return height;
 }
 
-
+/**
+ *  1 --> pc status cell
+ *
+ *  2 --> recentcontacts cell
+ *          对应items里的一个session
+ */
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(indexPath.section == 0){
@@ -403,10 +430,10 @@
         }else{
             [cell setBackgroundColor:[UIColor whiteColor]];
         }
-        view.backgroundColor=RGB(229, 229, 229);
+        //view.backgroundColor=RGB(229, 229, 229);
         cell.selectedBackgroundView=view;
-        [cell setShowSession:self.items[row]];
-        [self preLoadMessage:self.items[row]];
+        [cell setShowSession:session];
+        [self preLoadMessage:session];
         return cell;
     }
     
