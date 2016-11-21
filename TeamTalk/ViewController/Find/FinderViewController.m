@@ -41,6 +41,9 @@
 //    self.tableView.contentInset =UIEdgeInsetsMake(0, 0, 0, 0);
     
     self.title = @"发现";
+    
+    
+    self.navigationItem.rightBarButtonItem=nil;
 }
 
 -(void)viewDidAppear:(BOOL)animated

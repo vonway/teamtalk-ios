@@ -274,6 +274,9 @@
 {
     [super viewWillAppear:animated];
     
+    
+    self.navigationItem.rightBarButtonItem=nil;
+    
     self.title=@"联系人";
     
     self.navigationItem.titleView=self.segmentedControl;

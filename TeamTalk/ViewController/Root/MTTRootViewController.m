@@ -81,7 +81,7 @@
     myVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"我" image:[UIImage imageNamed:@"myprofile"] selectedImage:myProfileSelected];
     myVC.tabBarItem.tag=103;
     [myVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObject:RGB(26, 140, 242) forKey:NSForegroundColorAttributeName] forState:UIControlStateSelected];
-    findVC.hidesBottomBarWhenPushed =YES;
+    myVC.hidesBottomBarWhenPushed =YES;
     
     self.viewControllers=@[recentVC,contactVC,findVC,myVC];
     self.delegate=self;
@@ -98,12 +98,12 @@
     self.navigationItem.hidesBackButton =YES;
     self.navigationController.navigationBarHidden =NO;
     
-    BOOL update = [TheRuntime.updateInfo[@"haveupdate"] boolValue];
-    
-    if (![MTTUtil isUseFunctionBubble] || update) {
-        UIImageView *imgView =[self.tabBar tabBarButtonImageViewWithTitle:@"我"];
-        [imgView showPointBadge:NO];
-    }
+//    BOOL update = [TheRuntime.updateInfo[@"haveupdate"] boolValue];
+//    
+//    if (![MTTUtil isUseFunctionBubble] || update) {
+//        UIImageView *imgView =[self.tabBar tabBarButtonImageViewWithTitle:@"我"];
+//        [imgView showPointBadge:NO];
+//    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

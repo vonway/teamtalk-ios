@@ -94,6 +94,8 @@
     self.title=@"我";
     
     [self.tableView reloadData];
+    
+    self.navigationItem.rightBarButtonItem=nil;
 }
 
 -(void)viewDidDisappear:(BOOL)animated{

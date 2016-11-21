@@ -32,6 +32,9 @@
 @property(nonatomic,strong)UITableView* searchTableView;
 @property(nonatomic,strong)UIView* searchPlaceholderView;
 @property(nonatomic,assign)BOOL isMacOnline;
+
+@property(nonatomic,strong)UIBarButtonItem* baritem;
+
 - (void)n_receiveStartLoginNotification:(NSNotification*)notification;
 - (void)n_receiveLoginFailureNotification:(NSNotification*)notification;
 @end
@@ -116,11 +119,11 @@
     //self.lastMsgs = [NSMutableDictionary new];
     self.isMacOnline = 0;
     
-    UIBarButtonItem* item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"myprofile"]
+    _baritem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"myprofile"]
                                                              style:UIBarButtonItemStylePlain
                                                             target:self
                                                             action:@selector(add)];
-    self.navigationItem.rightBarButtonItem=item;
+    self.navigationItem.rightBarButtonItem=_baritem;
     
     /*
      [[SessionModule instance] loadLocalSession:^(bool isok) {
@@ -339,6 +342,7 @@
     [self setToolbarBadge:count];
     [self.tableView reloadData];
     self.title=APP_NAME;
+    self.navigationItem.rightBarButtonItem=_baritem;
 }
 
 
